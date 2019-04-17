@@ -1,6 +1,9 @@
 # Docker image for Xpra HTML5 Server
 
 
+TH: updated the original archived repo to use a more recent Linux. Example container at: ousefuldemos/docker-xpra-html5
+
+
 ## example docker-compose
 
 ```
@@ -14,7 +17,7 @@ services:
             - x_data:/data
         restart: always
         ports:
-            - 80:80
+            - 80: 10000
 
 volumes:
     x_data: {}
