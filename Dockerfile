@@ -5,14 +5,14 @@ ENV DEBIAN_FRONTEND noninteractive
 
 # install xpra
 RUN apt-get update && apt-get install -y software-properties-common
-RUN apt-get update && apt-get install -y curl && \
-	curl https://winswitch.org/gpg.asc | apt-key add - && \
-   echo "deb http://winswitch.org/ bionic main" > /etc/apt/sources.list.d/xpra.list && \
-  add-apt-repository universe  > /dev/null 2>&1 && \
-	apt-get update && \
-	apt-get install -y xpra xvfb xterm && \
-    apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update && apt-get install -y curl
+RUN curl https://winswitch.org/gpg.asc | apt-key add - \
+	&& echo "deb http://winswitch.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
+	&& add-apt-repository universe  > /dev/null 2>&1 \
+	&& apt-get update \
+	&& apt-get install -y xpra xvfb xterm \
+	&& apt-get clean \ 
+	&& rm -rf /var/lib/apt/lists/*
 
 ADD infinityTerm.sh /usr/local/bin/infinityTerm
 
@@ -25,10 +25,10 @@ RUN add-apt-repository -y ppa:stebbins/handbrake-releases \
 	&& apt-get install -y handbrake
 
 
-RUN apt-get update && \
-    DEBIAN_FRONTEND=noninteractive apt-get install -y firefox && \
-    apt-get clean && \ 
-    rm -rf /var/lib/apt/lists/*
+RUN apt-get update \
+    && apt-get install -y firefox \
+    && apt-get clean \ 
+    && rm -rf /var/lib/apt/lists/*
 
 USER user
 
