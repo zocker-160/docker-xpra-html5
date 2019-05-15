@@ -20,6 +20,11 @@ ADD infinityTerm.sh /usr/local/bin/infinityTerm
 RUN adduser --disabled-password --gecos "User" --uid 1000 user
 
 # install all X apps here
+RUN add-apt-repository -y ppa:stebbins/handbrake-releases \
+	&& apt-get update \
+	&& apt-get install -y handbrake
+
+
 RUN apt-get update && \
     DEBIAN_FRONTEND=noninteractive apt-get install -y firefox && \
     apt-get clean && \ 
