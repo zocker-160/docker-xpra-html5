@@ -4,15 +4,14 @@ MAINTAINER Ian Foster <ian@vorsk.com>
 ENV DEBIAN_FRONTEND noninteractive
 
 # install xpra
-RUN apt-get update && apt-get install -y software-properties-common
-RUN apt-get update && apt-get install -y curl
-RUN curl https://winswitch.org/gpg.asc | apt-key add - \
-	&& echo "deb http://winswitch.org/ bionic main" > /etc/apt/sources.list.d/xpra.list \
-	&& add-apt-repository universe  > /dev/null 2>&1 \
-	&& apt-get update \
-	&& apt-get install -y xpra xvfb xterm \
-	&& apt-get clean \ 
-	&& rm -rf /var/lib/apt/lists/*
+RUN apt-get update && \
+    apt-get install -y curl gnupg2 && \
+    curl https://xpra.org/gpg.asc | apt-key add - && \
+    echo "deb https://xpra.org/ bionic main" > /etc/apt/sources.list.d/xpra.list && \
+    apt-get update && \
+    apt-get install -y xpra xvfb xterm && \
+    apt-get clean && \ 
+    rm -rf /var/lib/apt/lists/*
 
 ADD infinityTerm.sh /usr/local/bin/infinityTerm
 
@@ -35,4 +34,4 @@ WORKDIR /data
 
 EXPOSE 10000
 
-CMD xpra start --bind-tcp=0.0.0.0:10000 --html=on --start-child=infinityTerm --exit-with-children --daemon=no --xvfb="/usr/bin/Xvfb +extension  Composite -screen 0 1920x1080x24+32 -nolisten tcp -noreset" --pulseaudio=no --notifications=no --bell=no
+CMD xpra start --bind-tcp=0.0.0.0:10000 --html=on --start-child=infinityTerm --exit-with-children --daemon=no --xvfb="/usr/bin/Xvfb +extension  Composite -screen 0 1920x1080x30+16 -nolisten tcp -noreset" --pulseaudio=no --notifications=no --bell=no
